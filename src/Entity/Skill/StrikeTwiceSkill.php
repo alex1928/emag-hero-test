@@ -2,24 +2,27 @@
 
 namespace App\Entity\Skill;
 
+use App\Service\Fight\Commentator\Commentator;
+use App\Service\Fight\FightPlayer;
+
 class StrikeTwiceSkill extends Skill
 {
-
     public function __construct()
     {
         $this->name = "Rapid Strike";
-        $this->message = "{player} used {$this->name} and will hit enemy two times!";
-        $this->propability = 10; //10% chance
+        $this->message = "{name} used {$this->name} and will hit enemy two times!";
+        $this->probability = 10; //10% chance
     }
 
-    public function onAttack()
+    public function onAttack(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator)
     {
-        // TODO: Implement onAttack() method.
+        $commentator->addComment($this->message, $attacker->getPlayer(), $defender->getPlayer());
+        $attacker->hit($defender, $commentator);
     }
 
-    public function onDefense()
+    public function onDefense(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator, $dmg = 0) : int
     {
-        // TODO: Implement onDefense() method.
+        return $dmg;
     }
 
 }

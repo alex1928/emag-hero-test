@@ -18,6 +18,8 @@ class Player
 
     protected $luck;
 
+    private $skills = [];
+
 
     public function __construct(string $name)
     {
@@ -120,31 +122,44 @@ class Player
         $this->luck = $luck;
     }
 
-    public function isAlive()
+    /**
+     * @return array
+     */
+    public function getSkills()
     {
-        return $this->getHealth() > 0;
+        return $this->skills;
     }
 
-    public function dealDamage(int $damage)
+    /**
+     * @param array $skills
+     */
+    public function setSkills($skills)
     {
-        $health = $this->health - $damage;
-
-        if($health < 0) {
-            $health = 0;
-        }
-
-        $this->setHealth($health);
+        $this->skills = $skills;
     }
+
 
     /**
      * @param PlayerStatsProviderInterface $statsProvider
      */
     public function setStats(PlayerStatsProviderInterface $statsProvider)
     {
-        $this->health = $statsProvider->getHealth();
+        $this->health   = $statsProvider->getHealth();
         $this->strength = $statsProvider->getStrength();
-        $this->defense = $statsProvider->getDefence();
-        $this->speed = $statsProvider->getSpeed();
-        $this->luck = $statsProvider->getLuck();
+        $this->defense  = $statsProvider->getDefence();
+        $this->speed    = $statsProvider->getSpeed();
+        $this->luck     = $statsProvider->getLuck();
+    }
+
+    public function __toString()
+    {
+        $res  = "Name: {$this->getName()}<br>";
+        $res .= "Health: {$this->getHealth()}<br>";
+        $res .= "Strength: {$this->getStrength()}<br>";
+        $res .= "Defense: {$this->getDefense()}<br>";
+        $res .= "Speed: {$this->getSpeed()}<br>";
+        $res .= "Luck: {$this->getLuck()}%<br>";
+
+        return $res;
     }
 }

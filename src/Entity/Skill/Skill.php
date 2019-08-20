@@ -2,16 +2,37 @@
 
 namespace App\Entity\Skill;
 
+use App\Service\Fight\Commentator\Commentator;
+
 abstract class Skill implements SkillInterface
 {
     protected $name;
 
     protected $message;
 
-    protected $propability;
+    protected $probability;
 
-    public function canUseSkill()
+    /**
+     * @return mixed
+     */
+    public function getName()
     {
-        return rand(0, 100) <= $this->propability;
+        return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProbability()
+    {
+        return $this->probability;
     }
 }

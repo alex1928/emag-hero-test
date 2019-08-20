@@ -1,12 +1,15 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-
-use App\Entity\Player\Hero;
 use App\Entity\Player\Player;
 use App\Service\StatsProvider\PlayerStatsRandomizer;
 use App\Entity\Utils\Range;
-use App\Service\Fight\Fight;
+use App\Service\Fight\FightFactory;
+use App\Service\Fight\Commentator\Commentator;
+use App\Service\Fight\Commentator\HTMLFightCommentFormatter;
+//use App\Service\Fight\Commentator\TextFightCommentFormatter;
+use App\Entity\Skill\StrikeTwiceSkill;
+use App\Entity\Skill\HalfDamageSkill;
 
 
 $heroStatProvider = new PlayerStatsRandomizer(
@@ -25,18 +28,29 @@ $monsterStatProvider = new PlayerStatsRandomizer(
     new Range(25, 40)
 );
 
-$hero = new Hero("Orderus");
+$strikeTwiceSkill = new StrikeTwiceSkill();
+$halfDamageSkill = new HalfDamageSkill();
+
+$hero = new Player("Orderus");
 $hero->setStats($heroStatProvider);
+$hero->setSkills([$strikeTwiceSkill, $halfDamageSkill]);
 
 $monster = new Player("Wild Beast");
 $monster->setStats($monsterStatProvider);
 
+echo $hero;
+echo '<br>';
+echo $monster;
+echo '<br>';
 
-$fight = new Fight($hero, $monster);
-$fight->fight();
+//$fightCommentFormatter = new TextFightCommentFormatter();
+$fightCommentFormatter = new HTMLFightCommentFormatter();
+$fightComentator = new Commentator($fightCommentFormatter);
 
-$messages = $fight->getMessages();
-foreach($messages as $message) {
 
-    echo $message . '<hr>';
-}
+$fightFactory = new FightFactory();
+$sparingFight = $fightFactory->createSparingFight($hero, $monster, $fightComentator);
+
+$sparingFight->fight();
+
+$fightComentator->printFormattedComments();

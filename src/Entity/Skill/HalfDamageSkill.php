@@ -2,24 +2,31 @@
 
 namespace App\Entity\Skill;
 
+use App\Service\Fight\Commentator\Commentator;
+use App\Service\Fight\Commentator\FightComment;
+use App\Service\Fight\FightPlayer;
+
 class HalfDamageSkill extends Skill
 {
 
     public function __construct()
     {
         $this->name = "Magic shield";
-        $this->message = "{player} used {$this->name} and will take only half of damage!";
-        $this->propability = 10; //10% chance
+        $this->message = "{name} used {$this->name} and will take only half of damage!";
+        $this->probability = 10; //10% chance
     }
 
-    public function onAttack()
+    public function onAttack(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator)
     {
-        // TODO: Implement onAttack() method.
+        // does nothing
     }
 
-    public function onDefense()
+    public function onDefense(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator, $dmg = 0) : int
     {
-        // TODO: Implement onDefense() method.
+        $comment = new FightComment($this->message);
+        $comment->setPlayerName($attacker->getPlayer()->getName());
+        $commentator->addCommentObject($comment);
+        return round( $dmg / 2);
     }
 
 }
