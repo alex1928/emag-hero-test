@@ -35,8 +35,8 @@ class FightPlayer
      */
     public function attack(FightPlayer $defender, Commentator $commentator): void
     {
-        foreach($this->getPlayer()->getSkills() as $skill) {
-            if($this->hasLuckToUse($skill)) {
+        foreach ($this->getPlayer()->getSkills() as $skill) {
+            if ($this->hasLuckToUse($skill)) {
 
                 $skill->onAttack($this, $defender, $commentator);
             }
@@ -83,8 +83,8 @@ class FightPlayer
      */
     public function defend(FightPlayer $attacker, Commentator $commentator, $dmg): int
     {
-        foreach($this->player->getSkills() as $skill) {
-            if($this->hasLuckToUse($skill)) {
+        foreach ($this->player->getSkills() as $skill) {
+            if ($this->hasLuckToUse($skill)) {
 
                 $dmg = $skill->onDefense($attacker, $this, $commentator, $dmg);
             }
@@ -101,8 +101,9 @@ class FightPlayer
     {
         $dmg = $this->player->getStrength() - $defender->getPlayer()->getDefense();
 
-        if($dmg < 0)
+        if ($dmg < 0) {
             $dmg = 0;
+        }
 
         return $dmg;
     }
@@ -114,7 +115,7 @@ class FightPlayer
     {
         $health = $this->player->getHealth() - $damage;
 
-        if($health < 0) {
+        if ($health < 0) {
             $health = 0;
         }
 

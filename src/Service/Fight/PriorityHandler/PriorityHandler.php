@@ -31,7 +31,7 @@ use App\Entity\Player\Player;
      */
     public function handle(Player $player1, Player $player2): ?int
     {
-        if($this->nextHandler) {
+        if ($this->nextHandler) {
             return $this->nextHandler->handle($player1, $player2);
         }
 

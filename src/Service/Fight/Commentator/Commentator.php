@@ -75,8 +75,7 @@ class Commentator
     {
         $formattedComments = [];
 
-        foreach($this->comments as $comment) {
-
+        foreach ($this->comments as $comment) {
             $formattedComments[] = $this->commentFormatter->format($comment);
         }
 
@@ -87,7 +86,7 @@ class Commentator
     {
         $formattedComments = $this->getFormattedComments();
 
-        foreach($formattedComments as $comment) {
+        foreach ($formattedComments as $comment) {
             echo $comment;
         }
     }

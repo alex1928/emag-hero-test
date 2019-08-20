@@ -19,10 +19,10 @@ class LuckPriorityHandler extends PriorityHandler
      */
     public function handle(Player $player1, Player $player2): ?int
     {
-        if($player1->getLuck() != $player2->getLuck()) {
+        if ($player1->getLuck() != $player2->getLuck()) {
             return $player1->getLuck() > $player2->getLuck();
-        } else {
-            return parent::handle($player1, $player2);
         }
+
+        return parent::handle($player1, $player2);
     }
 }

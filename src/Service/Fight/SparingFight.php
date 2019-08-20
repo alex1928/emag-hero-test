@@ -65,58 +65,6 @@ class SparingFight implements FightInterface
     }
 
     /**
-     * @return Player|null
-     */
-    public function fight(): ?Player
-    {
-        do {
-
-            $this->attacker->attack($this->defender, $this->commentator);
-
-            $tmp = $this->attacker;
-            $this->attacker = $this->defender;
-            $this->defender = $tmp;
-
-            $this->currentRound++;
-
-        } while($this->currentRound <= $this->maxRounds && $this->attacker->isAlive() && $this->defender->isAlive());
-
-        $this->fightFinished = true;
-
-        $attackerPlayer = $this->attacker->getPlayer();
-        $defenderPlayer = $this->defender->getPlayer();
-
-        if($attackerPlayer->getHealth() == $defenderPlayer->getHealth()) {
-
-            $commentText = "The fight ended in a draw.";
-            $this->commentator->addComment($commentText, $attackerPlayer, $defenderPlayer);
-            return null;
-        } else {
-
-            $winner = $this->getWinner();
-
-            $commentText = "{name} defeated the opponent!";
-            $this->commentator->addComment($commentText, $winner, $winner);
-            return $winner;
-        }
-    }
-
-    /**
-     * @return Player|null
-     */
-    public function getWinner(): ?Player
-    {
-        if(!$this->fightFinished) {
-            return null;
-        }
-
-        $player1 = $this->attacker->getPlayer();
-        $player2 = $this->defender->getPlayer();
-
-        return $player1->getHealth() > $player2->getHealth() ? $player1 : $player2;
-    }
-
-    /**
      * @param Player $attacker
      * @param Player $defender
      * @return bool
@@ -132,6 +80,62 @@ class SparingFight implements FightInterface
 
         return $result;
     }
+
+    /**
+     * @return Player|null
+     */
+    public function fight(): ?Player
+    {
+        do {
+
+            $this->attacker->attack($this->defender, $this->commentator);
+
+            $this->switchRoles();
+            $this->currentRound++;
+
+        } while($this->currentRound <= $this->maxRounds && $this->attacker->isAlive() && $this->defender->isAlive());
+
+        $this->fightFinished = true;
+
+        $attackerPlayer = $this->attacker->getPlayer();
+        $defenderPlayer = $this->defender->getPlayer();
+
+        if ($attackerPlayer->getHealth() == $defenderPlayer->getHealth()) {
+
+            $commentText = "The fight ended in a draw.";
+            $this->commentator->addComment($commentText, $attackerPlayer, $defenderPlayer);
+            return null;
+        }
+
+        $winner = $this->getWinner();
+
+        $commentText = "{name} defeated the opponent!";
+        $this->commentator->addComment($commentText, $winner, $winner);
+        return $winner;
+    }
+
+    private function switchRoles(): void
+    {
+        $tmp = $this->attacker;
+        $this->attacker = $this->defender;
+        $this->defender = $tmp;
+    }
+
+    /**
+     * @return Player|null
+     */
+    public function getWinner(): ?Player
+    {
+        if (!$this->fightFinished) {
+            return null;
+        }
+
+        $player1 = $this->attacker->getPlayer();
+        $player2 = $this->defender->getPlayer();
+
+        return $player1->getHealth() > $player2->getHealth() ? $player1 : $player2;
+    }
+
 
     /**
      * @return Commentator

@@ -11,6 +11,7 @@ use App\Service\StatsProvider\PlayerStatsProviderInterface;
  */
 class Player
 {
+
     /**
      * @var string
      */
@@ -35,7 +36,6 @@ class Player
      * @var int
      */
     private $luck;
-
     /**
      * @var array
      */
@@ -60,9 +60,9 @@ class Player
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
