@@ -8,6 +8,9 @@ namespace App\Service\Fight\Commentator;
  */
 class FightComment
 {
+    /**
+     * @var
+     */
     private $playerName;
 
     /**

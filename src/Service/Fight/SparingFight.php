@@ -8,17 +8,45 @@ use App\Service\Fight\PriorityHandler\RandomPriorityHandler;
 use App\Service\Fight\PriorityHandler\SpeedPriorityHandler;
 use App\Entity\Player\Player;
 
+/**
+ * Class SparingFight
+ * @package App\Service\Fight
+ */
 class SparingFight implements FightInterface
 {
+    /**
+     * @var
+     */
     private $currentRound;
+    /**
+     * @var int
+     */
     private $maxRounds = 20;
+    /**
+     * @var Commentator
+     */
     private $commentator;
 
+    /**
+     * @var FightPlayer
+     */
     private $attacker;
+    /**
+     * @var FightPlayer
+     */
     private $defender;
 
+    /**
+     * @var bool
+     */
     private $fightFinnished = false;
 
+    /**
+     * SparingFight constructor.
+     * @param Player $player1
+     * @param Player $player2
+     * @param Commentator $commentator
+     */
     public function __construct(Player $player1, Player $player2, Commentator $commentator)
     {
 
@@ -35,6 +63,9 @@ class SparingFight implements FightInterface
         $this->commentator = $commentator;
     }
 
+    /**
+     * @return Player|null
+     */
     public function fight() : ?Player
     {
         do {
@@ -66,6 +97,9 @@ class SparingFight implements FightInterface
         }
     }
 
+    /**
+     * @return Player|null
+     */
     public function getWinner() : ?Player
     {
         if(!$this->fightFinnished) {
@@ -78,6 +112,11 @@ class SparingFight implements FightInterface
         return $player1->getHealth() > $player2->getHealth() ? $player1 : $player2;
     }
 
+    /**
+     * @param Player $attacker
+     * @param Player $defender
+     * @return bool
+     */
     private function shouldAttackFirst(Player $attacker, Player $defender) : bool
     {
         $speedPriorityHandler = new SpeedPriorityHandler();

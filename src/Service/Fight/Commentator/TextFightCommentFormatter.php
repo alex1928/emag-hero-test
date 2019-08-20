@@ -2,8 +2,16 @@
 
 namespace App\Service\Fight\Commentator;
 
+/**
+ * Class TextFightCommentFormatter
+ * @package App\Service\Fight\Commentator
+ */
 class TextFightCommentFormatter implements FightCommentFormatterInterface
 {
+    /**
+     * @param FightComment $comment
+     * @return string
+     */
     public function format(FightComment $comment): string
     {
         $comment_str = str_replace('{name}', $comment->getPlayerName(), $comment->getText());

@@ -2,9 +2,19 @@
 
 namespace App\Entity\Utils;
 
+/**
+ * Class Range
+ * @package App\Entity\Utils
+ */
 class Range
 {
+    /**
+     * @var int
+     */
     private $min;
+    /**
+     * @var int
+     */
     private $max;
 
     /**

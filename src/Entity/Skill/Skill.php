@@ -2,14 +2,26 @@
 
 namespace App\Entity\Skill;
 
-use App\Service\Fight\Commentator\Commentator;
 
+/**
+ * Class Skill
+ * @package App\Entity\Skill
+ */
 abstract class Skill implements SkillInterface
 {
+    /**
+     * @var
+     */
     protected $name;
 
+    /**
+     * @var
+     */
     protected $message;
 
+    /**
+     * @var
+     */
     protected $probability;
 
     /**

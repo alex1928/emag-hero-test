@@ -4,16 +4,32 @@ namespace App\Service\Fight\PriorityHandler;
 
 use App\Entity\Player\Player;
 
+/**
+ * Class PriorityHandler
+ * @package App\Service\Fight\PriorityHandler
+ */
 abstract class PriorityHandler implements PriorityHandlerInterface
 {
+    /**
+     * @var
+     */
     private $nextHandler;
 
+    /**
+     * @param PriorityHandler $handler
+     * @return PriorityHandler
+     */
     public function setNext(PriorityHandler $handler): PriorityHandler
     {
         $this->nextHandler = $handler;
         return $handler;
     }
 
+    /**
+     * @param Player $player1
+     * @param Player $player2
+     * @return int|null
+     */
     public function handle(Player $player1, Player $player2): ?int
     {
         if($this->nextHandler) {

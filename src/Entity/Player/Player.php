@@ -4,23 +4,52 @@ namespace App\Entity\Player;
 
 use App\Service\StatsProvider\PlayerStatsProviderInterface;
 
+/**
+ * Class Player
+ * @package App\Entity\Player
+ */
 class Player
 {
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var
+     */
     protected $health;
 
+    /**
+     * @var
+     */
     protected $strength;
 
+    /**
+     * @var
+     */
     protected $defense;
 
+    /**
+     * @var
+     */
     protected $speed;
 
+    /**
+     * @var
+     */
     protected $luck;
 
+    /**
+     * @var array
+     */
     private $skills = [];
 
 
+    /**
+     * Player constructor.
+     * @param string $name
+     */
     public function __construct(string $name)
     {
         $this->name = $name;
@@ -151,6 +180,9 @@ class Player
         $this->luck     = $statsProvider->getLuck();
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         $res  = "Name: {$this->getName()}<br>";

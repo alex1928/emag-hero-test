@@ -82,6 +82,9 @@ class Commentator
         return $formattedComments;
     }
 
+    /**
+     *
+     */
     public function printFormattedComments()
     {
         $formattedComments = $this->getFormattedComments();
