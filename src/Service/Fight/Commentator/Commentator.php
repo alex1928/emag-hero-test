@@ -31,17 +31,18 @@ class Commentator
     /**
      * @param FightCommentFormatterInterface $formatter
      */
-    public function setFormatter(FightCommentFormatterInterface $formatter)
+    public function setFormatter(FightCommentFormatterInterface $formatter): void
     {
         $this->commentFormatter = $formatter;
     }
 
     /**
      * @param string $text
+     * @param Player $attacker
+     * @param Player $defender
      * @param int $dmg
-     * @param int $healthLeft
      */
-    public function addComment(string $text, Player $attacker, Player $defender, $dmg = 0)
+    public function addComment(string $text, Player $attacker, Player $defender, $dmg = 0): void
     {
         $comment = new FightComment($text);
         $comment->setPlayerName($attacker->getName());
@@ -54,7 +55,7 @@ class Commentator
     /**
      * @param FightComment $comment
      */
-    public function addCommentObject(FightComment $comment)
+    public function addCommentObject(FightComment $comment): void
     {
         $this->comments[] = $comment;
     }
@@ -62,7 +63,7 @@ class Commentator
     /**
      * @return array
      */
-    public function getPlainComments() : array
+    public function getPlainComments(): array
     {
         return $this->comments;
     }
@@ -70,7 +71,7 @@ class Commentator
     /**
      * @return array
      */
-    public function getFormattedComments() : array
+    public function getFormattedComments(): array
     {
         $formattedComments = [];
 
@@ -82,10 +83,7 @@ class Commentator
         return $formattedComments;
     }
 
-    /**
-     *
-     */
-    public function printFormattedComments()
+    public function printFormattedComments(): void
     {
         $formattedComments = $this->getFormattedComments();
 

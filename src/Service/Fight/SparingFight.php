@@ -15,13 +15,14 @@ use App\Entity\Player\Player;
 class SparingFight implements FightInterface
 {
     /**
-     * @var
+     * @var int
      */
-    private $currentRound;
+    private $currentRound = 0;
     /**
      * @var int
      */
     private $maxRounds = 20;
+
     /**
      * @var Commentator
      */
@@ -39,7 +40,7 @@ class SparingFight implements FightInterface
     /**
      * @var bool
      */
-    private $fightFinnished = false;
+    private $fightFinished = false;
 
     /**
      * SparingFight constructor.
@@ -66,7 +67,7 @@ class SparingFight implements FightInterface
     /**
      * @return Player|null
      */
-    public function fight() : ?Player
+    public function fight(): ?Player
     {
         do {
 
@@ -80,19 +81,22 @@ class SparingFight implements FightInterface
 
         } while($this->currentRound <= $this->maxRounds && $this->attacker->isAlive() && $this->defender->isAlive());
 
-        $this->fightFinnished = true;
+        $this->fightFinished = true;
 
-        if($this->attacker->getPlayer()->getHealth() == $this->defender->getPlayer()->getHealth()) {
+        $attackerPlayer = $this->attacker->getPlayer();
+        $defenderPlayer = $this->defender->getPlayer();
+
+        if($attackerPlayer->getHealth() == $defenderPlayer->getHealth()) {
 
             $commentText = "The fight ended in a draw.";
-            $this->commentator->addComment($commentText, $this->attacker, $this->defender);
+            $this->commentator->addComment($commentText, $attackerPlayer, $defenderPlayer);
             return null;
         } else {
 
             $winner = $this->getWinner();
 
             $commentText = "{name} defeated the opponent!";
-            $this->commentator->addComment($commentText, $this->attacker->getPlayer(), $this->defender->getPlayer());
+            $this->commentator->addComment($commentText, $winner, $winner);
             return $winner;
         }
     }
@@ -100,9 +104,9 @@ class SparingFight implements FightInterface
     /**
      * @return Player|null
      */
-    public function getWinner() : ?Player
+    public function getWinner(): ?Player
     {
-        if(!$this->fightFinnished) {
+        if(!$this->fightFinished) {
             return null;
         }
 
@@ -117,7 +121,7 @@ class SparingFight implements FightInterface
      * @param Player $defender
      * @return bool
      */
-    private function shouldAttackFirst(Player $attacker, Player $defender) : bool
+    private function shouldAttackFirst(Player $attacker, Player $defender): bool
     {
         $speedPriorityHandler = new SpeedPriorityHandler();
         $luckPriorityHandler = new LuckPriorityHandler();
@@ -132,7 +136,7 @@ class SparingFight implements FightInterface
     /**
      * @return Commentator
      */
-    public function getCommentator()
+    public function getCommentator(): Commentator
     {
         return $this->commentator;
     }

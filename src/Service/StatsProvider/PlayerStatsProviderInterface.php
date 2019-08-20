@@ -4,9 +4,9 @@ namespace App\Service\StatsProvider;
 
 interface PlayerStatsProviderInterface
 {
-    public function getHealth();
-    public function getStrength();
-    public function getDefence();
-    public function getSpeed();
-    public function getLuck();
+    public function getHealth(): int;
+    public function getStrength(): int;
+    public function getDefence(): int;
+    public function getSpeed(): int;
+    public function getLuck(): int;
 }

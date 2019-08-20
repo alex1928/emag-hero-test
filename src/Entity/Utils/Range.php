@@ -2,6 +2,7 @@
 
 namespace App\Entity\Utils;
 
+
 /**
  * Class Range
  * @package App\Entity\Utils
@@ -31,15 +32,15 @@ class Range
     /**
      * @return int
      */
-    public function getMin()
+    public function getMin(): int
     {
         return $this->min;
     }
 
     /**
-     * @param int $min
+     * @param $min
      */
-    public function setMin($min)
+    public function setMin($min): void
     {
         $this->min = $min;
     }
@@ -47,18 +48,24 @@ class Range
     /**
      * @return int
      */
-    public function getMax()
+    public function getMax(): int
     {
         return $this->max;
     }
 
     /**
-     * @param int $max
+     * @param $max
      */
-    public function setMax($max)
+    public function setMax($max): void
     {
         $this->max = $max;
     }
 
-
+    /**
+     * @return int
+     */
+    public function getRand(): int
+    {
+        return rand($this->getMin(), $this->getMax());
+    }
 }

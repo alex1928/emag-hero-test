@@ -8,9 +8,9 @@ use App\Service\Fight\FightPlayer;
 
 interface SkillInterface
 {
-    public function getName();
-    public function getMessage();
-    public function getProbability();
-    public function onAttack(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator);
-    public function onDefense(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator, $dmg = 0) : int;
+    public function getName(): string;
+    public function getMessage(): string;
+    public function getProbability(): int;
+    public function onAttack(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator): void;
+    public function onDefense(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator, $dmg = 0): int;
 }

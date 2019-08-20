@@ -9,7 +9,7 @@ use App\Entity\Utils\Range;
  * Class PlayerStatsRandomizer
  * @package App\Service
  */
-class PlayerStatsRandomizer implements PlayerStatsProviderInterface
+class RandomPlayerStatsProvider implements PlayerStatsProviderInterface
 {
     /**
      * @var Range
@@ -33,7 +33,7 @@ class PlayerStatsRandomizer implements PlayerStatsProviderInterface
     private $luckRange;
 
     /**
-     * PlayerStatsRandomizer constructor.
+     * RandomPlayerStatsProvider constructor.
      * @param Range $healthRange
      * @param Range $strengthRange
      * @param Range $defenceRange
@@ -57,64 +57,55 @@ class PlayerStatsRandomizer implements PlayerStatsProviderInterface
     /**
      * @return int
      */
-    public function getHealth()
+    public function getHealth(): int
     {
-        return $this->randStat($this->healthRange);
+        return $this->healthRange->getRand();
     }
 
     /**
      * @return int
      */
-    public function getStrength()
+    public function getStrength(): int
     {
-        return $this->randStat($this->strengthRange);
+        return $this->strengthRange->getRand();
     }
 
     /**
      * @return int
      */
-    public function getDefence()
+    public function getDefence(): int
     {
-        return $this->randStat($this->defenceRange);
+        return $this->defenceRange->getRand();
     }
 
     /**
      * @return int
      */
-    public function getSpeed()
+    public function getSpeed(): int
     {
-        return $this->randStat($this->speedRange);
+        return $this->speedRange->getRand();
     }
 
     /**
      * @return int
      */
-    public function getLuck()
+    public function getLuck(): int
     {
-        return $this->randStat($this->luckRange);
-    }
-
-    /**
-     * @param Range $range
-     * @return int
-     */
-    private function randStat(Range $range) : int
-    {
-        return rand($range->getMin(), $range->getMax());
+        return $this->luckRange->getRand();
     }
 
     /**
      * @return Range
      */
-    public function getHealthRange()
+    public function getHealthRange(): Range
     {
         return $this->healthRange;
     }
 
     /**
-     * @param Range $healthRange
+     * @param $healthRange
      */
-    public function setHealthRange($healthRange)
+    public function setHealthRange($healthRange): void
     {
         $this->healthRange = $healthRange;
     }
@@ -122,15 +113,15 @@ class PlayerStatsRandomizer implements PlayerStatsProviderInterface
     /**
      * @return Range
      */
-    public function getStrengthRange()
+    public function getStrengthRange(): Range
     {
         return $this->strengthRange;
     }
 
     /**
-     * @param Range $strengthRange
+     * @param $strengthRange
      */
-    public function setStrengthRange($strengthRange)
+    public function setStrengthRange($strengthRange): void
     {
         $this->strengthRange = $strengthRange;
     }
@@ -138,15 +129,15 @@ class PlayerStatsRandomizer implements PlayerStatsProviderInterface
     /**
      * @return Range
      */
-    public function getDefenceRange()
+    public function getDefenceRange(): Range
     {
         return $this->defenceRange;
     }
 
     /**
-     * @param Range $defenceRange
+     * @param $defenceRange
      */
-    public function setDefenceRange($defenceRange)
+    public function setDefenceRange($defenceRange): void
     {
         $this->defenceRange = $defenceRange;
     }
@@ -154,15 +145,15 @@ class PlayerStatsRandomizer implements PlayerStatsProviderInterface
     /**
      * @return Range
      */
-    public function getSpeedRange()
+    public function getSpeedRange(): Range
     {
         return $this->speedRange;
     }
 
     /**
-     * @param Range $speedRange
+     * @param $speedRange
      */
-    public function setSpeedRange($speedRange)
+    public function setSpeedRange($speedRange): void
     {
         $this->speedRange = $speedRange;
     }
@@ -170,15 +161,15 @@ class PlayerStatsRandomizer implements PlayerStatsProviderInterface
     /**
      * @return Range
      */
-    public function getLuckRange()
+    public function getLuckRange(): Range
     {
         return $this->luckRange;
     }
 
     /**
-     * @param Range $luckRange
+     * @param $luckRange
      */
-    public function setLuckRange($luckRange)
+    public function setLuckRange($luckRange): void
     {
         $this->luckRange = $luckRange;
     }

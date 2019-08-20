@@ -2,17 +2,18 @@
 
 namespace App\Service\Fight\Commentator;
 
+
 /**
  * Class FightComment
  * @package App\Service\Fight\Commentator
  */
 class FightComment
 {
+
     /**
-     * @var
+     * @var string
      */
     private $playerName;
-
     /**
      * @var string
      */
@@ -20,17 +21,15 @@ class FightComment
     /**
      * @var int
      */
-    private $dmg;
+    private $dmg = 0;
     /**
      * @var int
      */
-    private $healthLeft;
+    private $healthLeft = 0;
 
     /**
      * FightComment constructor.
-     * @param string $content
-     * @param int $dmg
-     * @param int $healthLeft
+     * @param string $text
      */
     public function __construct(string $text)
     {
@@ -38,17 +37,17 @@ class FightComment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getPlayerName()
+    public function getPlayerName(): string
     {
         return $this->playerName;
     }
 
     /**
-     * @param mixed $playerName
+     * @param $playerName
      */
-    public function setPlayerName($playerName)
+    public function setPlayerName(string $playerName): void
     {
         $this->playerName = $playerName;
     }
@@ -56,15 +55,15 @@ class FightComment
     /**
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
     /**
-     * @param string $text
+     * @param $text
      */
-    public function setText($text)
+    public function setText($text): void
     {
         $this->text = $text;
     }
@@ -72,15 +71,15 @@ class FightComment
     /**
      * @return int
      */
-    public function getDmg()
+    public function getDmg(): int
     {
         return $this->dmg;
     }
 
     /**
-     * @param int $dmg
+     * @param $dmg
      */
-    public function setDmg($dmg)
+    public function setDmg($dmg): void
     {
         $this->dmg = $dmg;
     }
@@ -88,25 +87,23 @@ class FightComment
     /**
      * @return int
      */
-    public function getHealthLeft()
+    public function getHealthLeft(): int
     {
         return $this->healthLeft;
     }
 
     /**
-     * @param int $healthLeft
+     * @param $healthLeft
      */
-    public function setHealthLeft($healthLeft)
+    public function setHealthLeft($healthLeft): void
     {
         $this->healthLeft = $healthLeft;
     }
 
-
-
     /**
      * @return string
      */
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->text;
     }

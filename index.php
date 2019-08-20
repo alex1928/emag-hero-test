@@ -2,7 +2,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Entity\Player\Player;
-use App\Service\StatsProvider\PlayerStatsRandomizer;
+use App\Service\StatsProvider\RandomPlayerStatsProvider;
 use App\Entity\Utils\Range;
 use App\Service\Fight\FightFactory;
 use App\Service\Fight\Commentator\Commentator;
@@ -12,7 +12,7 @@ use App\Entity\Skill\StrikeTwiceSkill;
 use App\Entity\Skill\HalfDamageSkill;
 
 
-$heroStatProvider = new PlayerStatsRandomizer(
+$heroStatProvider = new RandomPlayerStatsProvider(
     new Range(70, 100),
     new Range(70, 80),
     new Range(45, 55),
@@ -20,7 +20,7 @@ $heroStatProvider = new PlayerStatsRandomizer(
     new Range(10, 30)
 );
 
-$monsterStatProvider = new PlayerStatsRandomizer(
+$monsterStatProvider = new RandomPlayerStatsProvider(
     new Range(60, 90),
     new Range(60, 90),
     new Range(40, 60),

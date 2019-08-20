@@ -10,6 +10,7 @@ use App\Entity\Player\Player;
  */
 class RandomPriorityHandler extends PriorityHandler
 {
+
     /**
      * @param Player $player1
      * @param Player $player2

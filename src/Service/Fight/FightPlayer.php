@@ -6,16 +6,19 @@ use App\Entity\Player\Player;
 use App\Entity\Skill\SkillInterface;
 use App\Service\Fight\Commentator\Commentator;
 
+
 /**
  * Class FightPlayer
  * @package App\Service\Fight
  */
 class FightPlayer
 {
+
     /**
      * @var Player
      */
     private $player;
+
 
     /**
      * FightPlayer constructor.
@@ -27,26 +30,10 @@ class FightPlayer
     }
 
     /**
-     * @return bool
-     */
-    public function isAlive()
-    {
-        return $this->player->getHealth() > 0;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLucky()
-    {
-        return rand(0, 100) <= $this->player->getLuck();
-    }
-
-    /**
      * @param FightPlayer $defender
      * @param Commentator $commentator
      */
-    public function attack(FightPlayer $defender, Commentator $commentator)
+    public function attack(FightPlayer $defender, Commentator $commentator): void
     {
         foreach($this->getPlayer()->getSkills() as $skill) {
             if($this->hasLuckToUse($skill)) {
@@ -62,7 +49,7 @@ class FightPlayer
      * @param FightPlayer $defender
      * @param Commentator $commentator
      */
-    public function hit(FightPlayer $defender, Commentator $commentator)
+    public function hit(FightPlayer $defender, Commentator $commentator): void
     {
         if(!$defender->isAlive()) {
             return;
@@ -80,6 +67,11 @@ class FightPlayer
         $defender->dealDamage($dmg);
 
         $commentText = "{name} hit opponent dealing {dmg} damage.";
+
+        if($defender->getPlayer()->getHealth() > 0) {
+            $commentText .= " Opponent has {health_left} health left.";
+        }
+
         $commentator->addComment($commentText, $this->player, $defender->getPlayer(), $dmg);
     }
 
@@ -89,7 +81,7 @@ class FightPlayer
      * @param $dmg
      * @return int
      */
-    public function defend(FightPlayer $attacker, Commentator $commentator, $dmg) : int
+    public function defend(FightPlayer $attacker, Commentator $commentator, $dmg): int
     {
         foreach($this->player->getSkills() as $skill) {
             if($this->hasLuckToUse($skill)) {
@@ -103,9 +95,9 @@ class FightPlayer
 
     /**
      * @param FightPlayer $defender
-     * @return int|mixed
+     * @return int
      */
-    private function getDmg(FightPlayer $defender)
+    private function getDmg(FightPlayer $defender): int
     {
         $dmg = $this->player->getStrength() - $defender->getPlayer()->getDefense();
 
@@ -118,7 +110,7 @@ class FightPlayer
     /**
      * @param int $damage
      */
-    public function dealDamage(int $damage)
+    public function dealDamage(int $damage): void
     {
         $health = $this->player->getHealth() - $damage;
 
@@ -130,10 +122,26 @@ class FightPlayer
     }
 
     /**
+     * @return bool
+     */
+    public function isAlive(): bool
+    {
+        return $this->player->getHealth() > 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLucky(): bool
+    {
+        return rand(0, 100) <= $this->player->getLuck();
+    }
+
+    /**
      * @param SkillInterface $skill
      * @return bool
      */
-    public function hasLuckToUse(SkillInterface $skill)
+    public function hasLuckToUse(SkillInterface $skill): bool
     {
         return rand(0, 100) <= $skill->getProbability();
     }
@@ -141,7 +149,7 @@ class FightPlayer
     /**
      * @return Player
      */
-    public function getPlayer()
+    public function getPlayer(): Player
     {
         return $this->player;
     }

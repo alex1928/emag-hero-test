@@ -10,40 +10,38 @@ namespace App\Entity\Skill;
 abstract class Skill implements SkillInterface
 {
     /**
-     * @var
+     * @var string
      */
     protected $name;
-
     /**
-     * @var
+     * @var string
      */
     protected $message;
-
     /**
-     * @var
+     * @var int
      */
     protected $probability;
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getProbability()
+    public function getProbability(): int
     {
         return $this->probability;
     }

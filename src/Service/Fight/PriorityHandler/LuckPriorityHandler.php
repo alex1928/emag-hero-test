@@ -4,12 +4,14 @@ namespace App\Service\Fight\PriorityHandler;
 
 use App\Entity\Player\Player;
 
+
 /**
  * Class LuckPriorityHandler
  * @package App\Service\Fight\PriorityHandler
  */
 class LuckPriorityHandler extends PriorityHandler
 {
+
     /**
      * @param Player $player1
      * @param Player $player2

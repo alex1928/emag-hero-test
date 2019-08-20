@@ -4,6 +4,7 @@ namespace App\Entity\Player;
 
 use App\Service\StatsProvider\PlayerStatsProviderInterface;
 
+
 /**
  * Class Player
  * @package App\Entity\Player
@@ -13,32 +14,27 @@ class Player
     /**
      * @var string
      */
-    protected $name;
-
+    private $name;
     /**
-     * @var
+     * @var int
      */
-    protected $health;
-
+    private $health;
     /**
-     * @var
+     * @var int
      */
-    protected $strength;
-
+    private $strength;
     /**
-     * @var
+     * @var int
      */
-    protected $defense;
-
+    private $defense;
     /**
-     * @var
+     * @var int
      */
-    protected $speed;
-
+    private $speed;
     /**
-     * @var
+     * @var int
      */
-    protected $luck;
+    private $luck;
 
     /**
      * @var array
@@ -56,97 +52,97 @@ class Player
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
+     * @param $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getHealth()
+    public function getHealth(): int
     {
         return $this->health;
     }
 
     /**
-     * @param mixed $health
+     * @param int $health
      */
-    public function setHealth(int $health)
+    public function setHealth(int $health): void
     {
         $this->health = $health;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getStrength() : int
+    public function getStrength(): int
     {
         return $this->strength;
     }
 
     /**
-     * @param mixed $strength
+     * @param int $strength
      */
-    public function setStrength(int $strength)
+    public function setStrength(int $strength): void
     {
         $this->strength = $strength;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getDefense() : int
+    public function getDefense(): int
     {
         return $this->defense;
     }
 
     /**
-     * @param mixed $defense
+     * @param int $defense
      */
-    public function setDefense(int $defense)
+    public function setDefense(int $defense): void
     {
         $this->defense = $defense;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getSpeed() : int
+    public function getSpeed(): int
     {
         return $this->speed;
     }
 
     /**
-     * @param mixed $speed
+     * @param int $speed
      */
-    public function setSpeed(int $speed)
+    public function setSpeed(int $speed): void
     {
         $this->speed = $speed;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getLuck() : int
+    public function getLuck(): int
     {
         return $this->luck;
     }
 
     /**
-     * @param mixed $luck
+     * @param int $luck
      */
-    public function setLuck(int $luck)
+    public function setLuck(int $luck): void
     {
         $this->luck = $luck;
     }
@@ -154,24 +150,23 @@ class Player
     /**
      * @return array
      */
-    public function getSkills()
+    public function getSkills(): array
     {
         return $this->skills;
     }
 
     /**
-     * @param array $skills
+     * @param $skills
      */
-    public function setSkills($skills)
+    public function setSkills($skills): void
     {
         $this->skills = $skills;
     }
 
-
     /**
      * @param PlayerStatsProviderInterface $statsProvider
      */
-    public function setStats(PlayerStatsProviderInterface $statsProvider)
+    public function setStats(PlayerStatsProviderInterface $statsProvider): void
     {
         $this->health   = $statsProvider->getHealth();
         $this->strength = $statsProvider->getStrength();
@@ -183,7 +178,7 @@ class Player
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $res  = "Name: {$this->getName()}<br>";
         $res .= "Health: {$this->getHealth()}<br>";

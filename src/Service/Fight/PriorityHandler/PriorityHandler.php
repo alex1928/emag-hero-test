@@ -7,11 +7,10 @@ use App\Entity\Player\Player;
 /**
  * Class PriorityHandler
  * @package App\Service\Fight\PriorityHandler
- */
-abstract class PriorityHandler implements PriorityHandlerInterface
+ */class PriorityHandler implements PriorityHandlerInterface
 {
     /**
-     * @var
+     * @var PriorityHandler
      */
     private $nextHandler;
 
@@ -38,6 +37,4 @@ abstract class PriorityHandler implements PriorityHandlerInterface
 
         return null;
     }
-
-
 }
