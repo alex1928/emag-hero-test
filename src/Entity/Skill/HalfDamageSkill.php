@@ -2,7 +2,7 @@
 
 namespace App\Entity\Skill;
 
-use App\Service\Fight\Commentator\Commentator;
+use App\Service\Fight\Commentator\CommentatorInterface;
 use App\Service\Fight\Commentator\FightComment;
 use App\Service\Fight\FightPlayer;
 
@@ -26,9 +26,9 @@ class HalfDamageSkill extends Skill
     /**
      * @param FightPlayer $attacker
      * @param FightPlayer $defender
-     * @param Commentator $commentator
+     * @param CommentatorInterface $commentator
      */
-    public function onAttack(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator): void
+    public function onAttack(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator): void
     {
         // does nothing
     }
@@ -36,11 +36,11 @@ class HalfDamageSkill extends Skill
     /**
      * @param FightPlayer $attacker
      * @param FightPlayer $defender
-     * @param Commentator $commentator
+     * @param CommentatorInterface $commentator
      * @param int $dmg
      * @return int
      */
-    public function onDefense(FightPlayer $attacker, FightPlayer $defender, Commentator $commentator, $dmg = 0): int
+    public function onDefense(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator, $dmg = 0): int
     {
         $comment = new FightComment($this->message);
         $comment->setPlayerName($defender->getPlayer()->getName());
