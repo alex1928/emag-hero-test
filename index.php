@@ -47,10 +47,10 @@ echo '<br>';
 $fightCommentFormatter = new HTMLFightCommentFormatter();
 $fightComentator = new Commentator($fightCommentFormatter);
 
-
 $fightFactory = new FightFactory();
 $sparingFight = $fightFactory->createSparingFight($hero, $monster, $fightComentator);
 
 $sparingFight->fight();
 
-$fightComentator->printFormattedComments();
+//very basic template.
+require 'templates/index.php';
