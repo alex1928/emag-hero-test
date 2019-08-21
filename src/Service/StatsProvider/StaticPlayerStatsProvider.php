@@ -32,24 +32,24 @@ class StaticPlayerStatsProvider implements PlayerStatsProviderInterface
 
     /**
      * StaticPlayerStatsProvider constructor.
-     * @param int $healthRange
-     * @param int $strengthRange
-     * @param int $defenceRange
-     * @param int $speedRange
-     * @param int $luckRange
+     * @param int $health
+     * @param int $strength
+     * @param int $defence
+     * @param int $speed
+     * @param int $luck
      */
     public function __construct(
-        int $healthRange,
-        int $strengthRange,
-        int $defenceRange,
-        int $speedRange,
-        int $luckRange)
+        int $health,
+        int $strength,
+        int $defence,
+        int $speed,
+        int $luck)
     {
-        $this->health = $healthRange;
-        $this->strength = $strengthRange;
-        $this->defence = $defenceRange;
-        $this->speed = $speedRange;
-        $this->luck = $luckRange;
+        $this->health = $health;
+        $this->strength = $strength;
+        $this->defence = $defence;
+        $this->speed = $speed;
+        $this->luck = $luck;
     }
 
     /**
