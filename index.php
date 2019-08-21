@@ -45,12 +45,12 @@ echo '<br>';
 
 //$fightCommentFormatter = new TextFightCommentFormatter();
 $fightCommentFormatter = new HTMLFightCommentFormatter();
-$fightComentator = new Commentator($fightCommentFormatter);
+$fightCommentator = new Commentator($fightCommentFormatter);
 
 $fightFactory = new FightFactory();
-$sparingFight = $fightFactory->createSparingFight($hero, $monster, $fightComentator);
+$sparingFight = $fightFactory->createSparingFight($hero, $monster, $fightCommentator);
 
 $sparingFight->fight();
 
 //very basic template.
-require 'templates/index.php';
+require __DIR__ . '/templates/index.php';

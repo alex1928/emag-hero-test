@@ -4,7 +4,7 @@ namespace App\Service\Fight;
 
 use App\Entity\Player\Player;
 use App\Entity\Skill\SkillInterface;
-use App\Service\Fight\Commentator\Commentator;
+use App\Service\Fight\Commentator\CommentatorInterface;
 
 
 /**
@@ -31,9 +31,9 @@ class FightPlayer
 
     /**
      * @param FightPlayer $defender
-     * @param Commentator $commentator
+     * @param CommentatorInterface $commentator
      */
-    public function attack(FightPlayer $defender, Commentator $commentator): void
+    public function attack(FightPlayer $defender, CommentatorInterface $commentator): void
     {
         foreach ($this->getPlayer()->getSkills() as $skill) {
             if ($this->hasLuckToUse($skill)) {
@@ -47,9 +47,9 @@ class FightPlayer
 
     /**
      * @param FightPlayer $defender
-     * @param Commentator $commentator
+     * @param CommentatorInterface $commentator
      */
-    public function hit(FightPlayer $defender, Commentator $commentator): void
+    public function hit(FightPlayer $defender, CommentatorInterface $commentator): void
     {
         if(!$defender->isAlive()) {
             return;
@@ -77,11 +77,11 @@ class FightPlayer
 
     /**
      * @param FightPlayer $attacker
-     * @param Commentator $commentator
+     * @param CommentatorInterface $commentator
      * @param $dmg
      * @return int
      */
-    public function defend(FightPlayer $attacker, Commentator $commentator, $dmg): int
+    public function defend(FightPlayer $attacker, CommentatorInterface $commentator, $dmg): int
     {
         foreach ($this->player->getSkills() as $skill) {
             if ($this->hasLuckToUse($skill)) {

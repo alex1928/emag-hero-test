@@ -3,6 +3,7 @@
 namespace App\Service\Fight;
 
 use App\Service\Fight\Commentator\Commentator;
+use App\Service\Fight\Commentator\CommentatorInterface;
 use App\Service\Fight\PriorityHandler\LuckPriorityHandler;
 use App\Service\Fight\PriorityHandler\RandomPriorityHandler;
 use App\Service\Fight\PriorityHandler\SpeedPriorityHandler;
@@ -46,9 +47,9 @@ class SparingFight implements FightInterface
      * SparingFight constructor.
      * @param Player $player1
      * @param Player $player2
-     * @param Commentator $commentator
+     * @param CommentatorInterface $commentator
      */
-    public function __construct(Player $player1, Player $player2, Commentator $commentator)
+    public function __construct(Player $player1, Player $player2, CommentatorInterface $commentator)
     {
 
         if ($this->shouldAttackFirst($player1, $player2)) {
@@ -138,9 +139,9 @@ class SparingFight implements FightInterface
 
 
     /**
-     * @return Commentator
+     * @return CommentatorInterface
      */
-    public function getCommentator(): Commentator
+    public function getCommentator(): CommentatorInterface
     {
         return $this->commentator;
     }

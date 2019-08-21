@@ -8,7 +8,7 @@ use App\Entity\Player\Player;
  * Class Commentator
  * @package App\Service\Fight\Commentator
  */
-class Commentator
+class Commentator implements CommentatorInterface
 {
     /**
      * @var array

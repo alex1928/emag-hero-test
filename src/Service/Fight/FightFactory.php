@@ -3,7 +3,7 @@
 namespace App\Service\Fight;
 
 use App\Entity\Player\Player;
-use App\Service\Fight\Commentator\Commentator;
+use App\Service\Fight\Commentator\CommentatorInterface;
 
 /**
  * Class FightFactory
@@ -14,10 +14,10 @@ class FightFactory
     /**
      * @param Player $player1
      * @param Player $player2
-     * @param Commentator $commentator
+     * @param CommentatorInterface $commentator
      * @return FightInterface
      */
-    public function createSparingFight(Player $player1, Player $player2, Commentator $commentator) : FightInterface
+    public function createSparingFight(Player $player1, Player $player2, CommentatorInterface $commentator) : FightInterface
     {
         return new SparingFight($player1, $player2, $commentator);
     }
