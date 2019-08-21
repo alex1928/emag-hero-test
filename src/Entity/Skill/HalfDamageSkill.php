@@ -20,7 +20,7 @@ class HalfDamageSkill extends Skill
     {
         $this->name = "Magic Shield";
         $this->message = "{name} used {$this->name} and will take only half of damage!";
-        $this->probability = 10; //10% chance
+        $this->probability = 20; //20% chance
     }
 
     /**
