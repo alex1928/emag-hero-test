@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require dirname(__DIR__).'/vendor/autoload.php';
 
 use App\Entity\Player\Player;
 use App\Service\StatsProvider\RandomPlayerStatsProvider;
@@ -55,4 +55,4 @@ $sparingFight = $fightFactory->createSparingFight($hero, $monster);
 $sparingFight->fight();
 
 //very basic template.
-require __DIR__ . '/templates/index.php';
+require dirname(__DIR__).'/templates/index.php';
