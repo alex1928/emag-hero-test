@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Fight\PriorityHandler;
+namespace App\Service\Fight\PriorityDeterminer\PriorityHandler;
 
 use App\Entity\Player\Player;
 

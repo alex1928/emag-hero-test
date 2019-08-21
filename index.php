@@ -5,6 +5,7 @@ use App\Entity\Player\Player;
 use App\Service\StatsProvider\RandomPlayerStatsProvider;
 use App\Entity\Utils\Range;
 use App\Service\Fight\FightFactory;
+use App\Service\Fight\PriorityDeterminer\PriorityDeterminer;
 use App\Service\Fight\Commentator\Commentator;
 use App\Service\Fight\Commentator\HTMLFightCommentFormatter;
 //use App\Service\Fight\Commentator\TextFightCommentFormatter;
@@ -38,17 +39,18 @@ $hero->setSkills([$strikeTwiceSkill, $halfDamageSkill]);
 $monster = new Player("Wild Beast");
 $monster->setStats($monsterStatProvider);
 
-echo $hero;
-echo '<br>';
-echo $monster;
-echo '<br>';
+
+$heroBeforeFight = clone $hero;
+$monsterBeforeFight = clone $monster;
+
 
 //$fightCommentFormatter = new TextFightCommentFormatter();
 $fightCommentFormatter = new HTMLFightCommentFormatter();
 $fightCommentator = new Commentator($fightCommentFormatter);
+$priorityDeterminer = new PriorityDeterminer();
 
-$fightFactory = new FightFactory();
-$sparingFight = $fightFactory->createSparingFight($hero, $monster, $fightCommentator);
+$fightFactory = new FightFactory($fightCommentator, $priorityDeterminer);
+$sparingFight = $fightFactory->createSparingFight($hero, $monster);
 
 $sparingFight->fight();
 

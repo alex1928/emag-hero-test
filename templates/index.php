@@ -12,7 +12,15 @@
 
 <body>
 
-    <?php $fightComentator->printFormattedComments(); ?>
+    <?php echo $heroBeforeFight; ?>
+
+    <hr>
+
+    <?php echo $monsterBeforeFight; ?>
+
+    <hr>
+
+    <?php $fightCommentator->printFormattedComments(); ?>
 
 </body>
 </html>

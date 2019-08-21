@@ -13,12 +13,10 @@ use App\Service\Fight\Commentator\CommentatorInterface;
  */
 class FightPlayer
 {
-
     /**
      * @var Player
      */
     private $player;
-
 
     /**
      * FightPlayer constructor.

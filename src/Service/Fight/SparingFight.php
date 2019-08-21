@@ -2,12 +2,10 @@
 
 namespace App\Service\Fight;
 
-use App\Service\Fight\Commentator\Commentator;
-use App\Service\Fight\Commentator\CommentatorInterface;
-use App\Service\Fight\PriorityHandler\LuckPriorityHandler;
-use App\Service\Fight\PriorityHandler\RandomPriorityHandler;
-use App\Service\Fight\PriorityHandler\SpeedPriorityHandler;
+
 use App\Entity\Player\Player;
+use App\Service\Fight\PriorityDeterminer\PriorityDeterminerInterface;
+use App\Service\Fight\Commentator\CommentatorInterface;
 
 /**
  * Class SparingFight
@@ -25,9 +23,14 @@ class SparingFight implements FightInterface
     private $maxRounds = 20;
 
     /**
-     * @var Commentator
+     * @var CommentatorInterface
      */
     private $commentator;
+
+    /**
+     * @var PriorityDeterminerInterface
+     */
+    private $priorityDeterminer;
 
     /**
      * @var FightPlayer
@@ -48,11 +51,25 @@ class SparingFight implements FightInterface
      * @param Player $player1
      * @param Player $player2
      * @param CommentatorInterface $commentator
+     * @param PriorityDeterminerInterface $priorityDeterminer
      */
-    public function __construct(Player $player1, Player $player2, CommentatorInterface $commentator)
+    public function __construct(Player $player1, Player $player2, CommentatorInterface $commentator, PriorityDeterminerInterface $priorityDeterminer)
     {
+        $this->commentator = $commentator;
+        $this->priorityDeterminer = $priorityDeterminer;
 
-        if ($this->shouldAttackFirst($player1, $player2)) {
+        $this->preparePlayers($player1, $player2);
+    }
+
+    /**
+     * @param Player $player1
+     * @param Player $player2
+     */
+    private function preparePlayers(Player $player1, Player $player2): void
+    {
+        $firstPlayer = $this->priorityDeterminer->getFirst($player1, $player2);
+
+        if ($firstPlayer === $player1) {
 
             $this->attacker = new FightPlayer($player1);
             $this->defender = new FightPlayer($player2);
@@ -61,25 +78,6 @@ class SparingFight implements FightInterface
             $this->attacker = new FightPlayer($player2);
             $this->defender = new FightPlayer($player1);
         }
-
-        $this->commentator = $commentator;
-    }
-
-    /**
-     * @param Player $attacker
-     * @param Player $defender
-     * @return bool
-     */
-    private function shouldAttackFirst(Player $attacker, Player $defender): bool
-    {
-        $speedPriorityHandler = new SpeedPriorityHandler();
-        $luckPriorityHandler = new LuckPriorityHandler();
-        $randomPriorityHandler = new RandomPriorityHandler();
-        $speedPriorityHandler->setNext($luckPriorityHandler)->setNext($randomPriorityHandler);
-
-        $result = $speedPriorityHandler->handle($attacker, $defender);
-
-        return $result;
     }
 
     /**
