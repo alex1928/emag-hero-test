@@ -9,7 +9,7 @@ This is simple turn based sparing fight between two players, written in pure PHP
 If you want to host it yourself, you need
 
 PHP 7.2+ or newer
-HTTP server with PHP support (eg: Apache, Nginx, Caddy)
+HTTP server with PHP support (eg: Apache, Nginx)
 Composer
 
 ### Installing
