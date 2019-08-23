@@ -9,7 +9,7 @@ use App\Service\Fight\PriorityDeterminer\PriorityDeterminer;
 use App\Service\StatsProvider\StaticPlayerStatsProvider;
 use PHPUnit\Framework\TestCase;
 
-final class CommentatorTest extends TestCase
+final class FightTest extends TestCase
 {
 
     public function testAttack() : void

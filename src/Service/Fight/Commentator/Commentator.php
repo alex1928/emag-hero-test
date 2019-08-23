@@ -29,14 +29,6 @@ class Commentator implements CommentatorInterface
     }
 
     /**
-     * @param FightCommentFormatterInterface $formatter
-     */
-    public function setFormatter(FightCommentFormatterInterface $formatter): void
-    {
-        $this->commentFormatter = $formatter;
-    }
-
-    /**
      * @param string $text
      * @param Player $attacker
      * @param Player $defender
@@ -46,7 +38,7 @@ class Commentator implements CommentatorInterface
     {
         $comment = new FightComment($text);
         $comment->setPlayerName($attacker->getName());
-        $comment->setHealthLeft($defender->getHealth());
+        $comment->setHealthLeft($defender->getStats()->getHealth());
         $comment->setDmg($dmg);
 
         $this->addCommentObject($comment);

@@ -99,7 +99,7 @@ class SparingFight implements FightInterface
         $attackerPlayer = $this->attacker->getPlayer();
         $defenderPlayer = $this->defender->getPlayer();
 
-        if ($attackerPlayer->getHealth() == $defenderPlayer->getHealth()) {
+        if ($attackerPlayer->getStats()->getHealth() == $defenderPlayer->getStats()->getHealth()) {
 
             $commentText = "The fight ended in a draw.";
             $this->commentator->addComment($commentText, $attackerPlayer, $defenderPlayer);
@@ -132,7 +132,7 @@ class SparingFight implements FightInterface
         $player1 = $this->attacker->getPlayer();
         $player2 = $this->defender->getPlayer();
 
-        return $player1->getHealth() > $player2->getHealth() ? $player1 : $player2;
+        return $player1->getStats()->getHealth() > $player2->getStats()->getHealth() ? $player1 : $player2;
     }
 
 

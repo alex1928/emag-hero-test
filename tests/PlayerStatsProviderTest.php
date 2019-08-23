@@ -2,7 +2,7 @@
 
 use App\Entity\Player\Player;
 use App\Entity\Utils\Range;
-use App\Service\StatsProvider\RandomPlayerStatsProvider;
+use App\Service\StatsProvider\RandomPlayerStats;
 use App\Service\StatsProvider\StaticPlayerStatsProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +11,7 @@ final class PlayerStatsProviderTest extends TestCase
 
     public function testRandomPlayerStats() : void
     {
-        $heroStatProvider = new RandomPlayerStatsProvider(
+        $heroStatProvider = new RandomPlayerStats(
             new Range(10, 15),
             new Range(10, 15),
             new Range(10, 15),

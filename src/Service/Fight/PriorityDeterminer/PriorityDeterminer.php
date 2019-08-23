@@ -3,9 +3,9 @@
 namespace App\Service\Fight\PriorityDeterminer;
 
 use App\Entity\Player\Player;
-use App\Service\Fight\PriorityDeterminer\PriorityHandler\LuckPriorityHandler;
-use App\Service\Fight\PriorityDeterminer\PriorityHandler\RandomPriorityHandler;
-use App\Service\Fight\PriorityDeterminer\PriorityHandler\SpeedPriorityHandler;
+use App\Service\Fight\PriorityDeterminer\PriorityHandler\LuckPriorityComparator;
+use App\Service\Fight\PriorityDeterminer\PriorityHandler\RandomPriorityComparator;
+use App\Service\Fight\PriorityDeterminer\PriorityHandler\SpeedPriorityComparator;
 
 /**
  * Class PriorityDeterminer
@@ -14,28 +14,28 @@ use App\Service\Fight\PriorityDeterminer\PriorityHandler\SpeedPriorityHandler;
 class PriorityDeterminer implements PriorityDeterminerInterface
 {
     /**
-     * @var SpeedPriorityHandler
+     * @var SpeedPriorityComparator
      */
-    private $speedPriorityHandler;
+    private $speedPriorityComparator;
     /**
-     * @var LuckPriorityHandler
+     * @var LuckPriorityComparator
      */
-    private $luckPriorityHandler;
+    private $luckPriorityComparator;
     /**
-     * @var RandomPriorityHandler
+     * @var RandomPriorityComparator
      */
-    private $randomPriorityHandler;
+    private $randomPriorityComparator;
 
     /**
      * PriorityDeterminer constructor.
      */
     public function __construct()
     {
-        $this->speedPriorityHandler = new SpeedPriorityHandler();
-        $this->luckPriorityHandler = new LuckPriorityHandler();
-        $this->randomPriorityHandler = new RandomPriorityHandler();
+        $this->speedPriorityComparator = new SpeedPriorityComparator();
+        $this->luckPriorityComparator = new LuckPriorityComparator();
+        $this->randomPriorityComparator = new RandomPriorityComparator();
 
-        $this->speedPriorityHandler->setNext($this->luckPriorityHandler)->setNext($this->randomPriorityHandler);
+        $this->speedPriorityComparator->setNext($this->luckPriorityComparator)->setNext($this->randomPriorityComparator);
     }
 
     /**
@@ -45,7 +45,10 @@ class PriorityDeterminer implements PriorityDeterminerInterface
      */
     public function getFirst(Player $player1, Player $player2): Player
     {
-        $result = $this->speedPriorityHandler->handle($player1, $player2);
+        $stats1 = $player1->getStats();
+        $stats2 = $player2->getStats();
+
+        $result = $this->speedPriorityComparator->compare($stats1, $stats2);
 
         return $result ? $player1 : $player2;
     }

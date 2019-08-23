@@ -2,49 +2,48 @@
 require dirname(__DIR__).'/vendor/autoload.php';
 
 use App\Entity\Player\Player;
-use App\Service\StatsProvider\RandomPlayerStatsProvider;
-use App\Entity\Utils\Range;
+use App\Entity\Player\PlayerStats;
+use App\Entity\Skill\SkillFactory;
+use App\Entity\Utils\RandGenerator;
 use App\Service\Fight\FightFactory;
 use App\Service\Fight\PriorityDeterminer\PriorityDeterminer;
 use App\Service\Fight\Commentator\Commentator;
 use App\Service\Fight\Commentator\HTMLFightCommentFormatter;
-//use App\Service\Fight\Commentator\TextFightCommentFormatter;
-use App\Entity\Skill\StrikeTwiceSkill;
-use App\Entity\Skill\HalfDamageSkill;
 
 
-$heroStatProvider = new RandomPlayerStatsProvider(
-    new Range(70, 100),
-    new Range(70, 80),
-    new Range(45, 55),
-    new Range(40, 50),
-    new Range(10, 30)
-);
+$randGenerator = new RandGenerator();
 
-$monsterStatProvider = new RandomPlayerStatsProvider(
-    new Range(60, 90),
-    new Range(60, 90),
-    new Range(40, 60),
-    new Range(40, 60),
-    new Range(25, 40)
-);
+$heroStats = new PlayerStats();
+$heroStats->setHealth($randGenerator->rand(70, 100));
+$heroStats->setStrength($randGenerator->rand(70, 80));
+$heroStats->setDefense($randGenerator->rand(45, 55));
+$heroStats->setSpeed($randGenerator->rand(40, 50));
+$heroStats->setLuck($randGenerator->rand(10, 30));
 
-$strikeTwiceSkill = new StrikeTwiceSkill();
-$halfDamageSkill = new HalfDamageSkill();
+$monsterStats = new PlayerStats();
+$monsterStats->setHealth($randGenerator->rand(60, 90));
+$monsterStats->setStrength($randGenerator->rand(60, 90));
+$monsterStats->setDefense($randGenerator->rand(40, 60));
+$monsterStats->setSpeed($randGenerator->rand(40, 60));
+$monsterStats->setLuck($randGenerator->rand(25, 40));
 
-$hero = new Player("Orderus");
-$hero->setStats($heroStatProvider);
-$hero->setSkills([$strikeTwiceSkill, $halfDamageSkill]);
+$skillFactory = new SkillFactory();
 
-$monster = new Player("Wild Beast");
-$monster->setStats($monsterStatProvider);
+$playerSkills = [];
+$playerSkills[] = $skillFactory->createStrikeTwiceSkill();
+$playerSkills[] = $skillFactory->createHalfDamageSkill();
+
+
+$hero = new Player("Orderus", $heroStats);
+$hero->setSkills($playerSkills);
+
+$monster = new Player("Wild Beast", $monsterStats);
 
 
 $heroBeforeFight = clone $hero;
 $monsterBeforeFight = clone $monster;
 
 
-//$fightCommentFormatter = new TextFightCommentFormatter();
 $fightCommentFormatter = new HTMLFightCommentFormatter();
 $fightCommentator = new Commentator($fightCommentFormatter);
 $priorityDeterminer = new PriorityDeterminer();

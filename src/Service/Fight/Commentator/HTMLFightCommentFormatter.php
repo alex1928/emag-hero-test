@@ -2,7 +2,6 @@
 
 namespace App\Service\Fight\Commentator;
 
-
 /**
  * Class HTMLFightCommentFormatter
  * @package App\Service\Fight\Commentator

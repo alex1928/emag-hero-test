@@ -60,13 +60,13 @@ class FightPlayer
             return;
         }
 
-        $dmg = $this->getDmg($defender);
+        $dmg = $this->calculateDamage($defender);
         $dmg = $defender->defend($this, $commentator, $dmg);
         $defender->dealDamage($dmg);
 
         $commentText = "{name} hit opponent dealing {dmg} damage.";
 
-        if($defender->getPlayer()->getHealth() > 0) {
+        if($defender->getPlayer()->getStats()->getHealth() > 0) {
             $commentText .= " Opponent has {health_left} health left.";
         }
 
@@ -95,9 +95,9 @@ class FightPlayer
      * @param FightPlayer $defender
      * @return int
      */
-    private function getDmg(FightPlayer $defender): int
+    private function calculateDamage(FightPlayer $defender): int
     {
-        $dmg = $this->player->getStrength() - $defender->getPlayer()->getDefense();
+        $dmg = $this->player->getStats()->getStrength() - $defender->getPlayer()->getStats()->getDefense();
 
         if ($dmg < 0) {
             $dmg = 0;
@@ -111,13 +111,13 @@ class FightPlayer
      */
     public function dealDamage(int $damage): void
     {
-        $health = $this->player->getHealth() - $damage;
+        $health = $this->player->getStats()->getHealth() - $damage;
 
         if ($health < 0) {
             $health = 0;
         }
 
-        $this->player->setHealth($health);
+        $this->player->getStats()->setHealth($health);
     }
 
     /**
@@ -125,7 +125,7 @@ class FightPlayer
      */
     public function isAlive(): bool
     {
-        return $this->player->getHealth() > 0;
+        return $this->player->getStats()->getHealth() > 0;
     }
 
     /**
@@ -133,7 +133,7 @@ class FightPlayer
      */
     public function isLucky(): bool
     {
-        return rand(0, 100) <= $this->player->getLuck();
+        return rand(0, 100) <= $this->player->getStats()->getLuck();
     }
 
     /**
