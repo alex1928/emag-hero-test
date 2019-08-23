@@ -9,6 +9,8 @@ use App\Service\Fight\FightFactory;
 use App\Service\Fight\PriorityDeterminer\PriorityDeterminer;
 use App\Service\Fight\Commentator\Commentator;
 use App\Service\Fight\Commentator\HTMLFightCommentFormatter;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 
 $randGenerator = new RandGenerator();
@@ -53,5 +55,10 @@ $sparingFight = $fightFactory->createSparingFight($hero, $monster);
 
 $sparingFight->fight();
 
-//very basic template.
-require dirname(__DIR__).'/templates/index.php';
+
+$loader = new FilesystemLoader(dirname(__DIR__).'/templates');
+$twig = new Environment($loader, [
+    'cache' => dirname(__DIR__).'/var/cache/twig_compilation_cache',
+]);
+
+echo $twig->render('fight.twig.html', ['someText' => 'test ad awa wda']);

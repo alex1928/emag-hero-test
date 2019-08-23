@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Sparing Fight Demo</title>
+    <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="Emag hero test">
     <meta name="author" content="Alexander Woźniak">
 
@@ -12,7 +12,7 @@
 
 <body>
 
-    <?php $fightCommentator->printFormattedComments(); ?>
+    {% block body %}{% endblock %}
 
 </body>
 </html>
