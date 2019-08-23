@@ -32,14 +32,14 @@ class Commentator implements CommentatorInterface
      * @param string $text
      * @param Player $attacker
      * @param Player $defender
-     * @param int $dmg
+     * @param int $damage
      */
-    public function addComment(string $text, Player $attacker, Player $defender, $dmg = 0): void
+    public function addComment(string $text, Player $attacker, Player $defender, $damage = 0): void
     {
         $comment = new FightComment($text);
         $comment->setPlayerName($attacker->getName());
         $comment->setHealthLeft($defender->getStats()->getHealth());
-        $comment->setDmg($dmg);
+        $comment->setDamage($damage);
 
         $this->addCommentObject($comment);
     }
@@ -55,31 +55,8 @@ class Commentator implements CommentatorInterface
     /**
      * @return array
      */
-    public function getPlainComments(): array
+    public function getComments(): array
     {
         return $this->comments;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFormattedComments(): array
-    {
-        $formattedComments = [];
-
-        foreach ($this->comments as $comment) {
-            $formattedComments[] = $this->commentFormatter->format($comment);
-        }
-
-        return $formattedComments;
-    }
-
-    public function printFormattedComments(): void
-    {
-        $formattedComments = $this->getFormattedComments();
-
-        foreach ($formattedComments as $comment) {
-            echo $comment;
-        }
     }
 }

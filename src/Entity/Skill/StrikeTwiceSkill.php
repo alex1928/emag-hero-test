@@ -30,7 +30,7 @@ class StrikeTwiceSkill extends Skill
     public function onAttack(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator): void
     {
         $commentator->addComment($this->message, $attacker->getPlayer(), $defender->getPlayer());
-        $attacker->hit($defender, $commentator);
+        $attacker->hit($defender);
     }
 
     /**

@@ -19,35 +19,42 @@ class FightPlayer
     private $player;
 
     /**
+     * @var CommentatorInterface
+     */
+    private $commentator;
+
+    /**
      * FightPlayer constructor.
      * @param Player $player
+     * @param CommentatorInterface $commentator
      */
-    public function __construct(Player $player)
+    public function __construct(Player $player, CommentatorInterface $commentator)
     {
         $this->player = $player;
+        $this->commentator = $commentator;
     }
 
     /**
      * @param FightPlayer $defender
-     * @param CommentatorInterface $commentator
      */
-    public function attack(FightPlayer $defender, CommentatorInterface $commentator): void
+    public function attack(FightPlayer $defender): void
     {
-        foreach ($this->getPlayer()->getSkills() as $skill) {
+        $skills = $this->getPlayer()->getSkills();
+
+        foreach ($skills as $skill) {
             if ($this->hasLuckToUse($skill)) {
 
-                $skill->onAttack($this, $defender, $commentator);
+                $skill->onAttack($this, $defender, $this->commentator);
             }
         }
 
-        $this->hit($defender, $commentator);
+        $this->hit($defender);
     }
 
     /**
      * @param FightPlayer $defender
-     * @param CommentatorInterface $commentator
      */
-    public function hit(FightPlayer $defender, CommentatorInterface $commentator): void
+    public function hit(FightPlayer $defender): void
     {
         if(!$defender->isAlive()) {
             return;
@@ -56,12 +63,12 @@ class FightPlayer
         if($defender->isLucky()) {
 
             $commentText = "{name} missed.";
-            $commentator->addComment($commentText, $this->player, $defender->getPlayer());
+            $this->commentator->addComment($commentText, $this->player, $defender->getPlayer());
             return;
         }
 
         $dmg = $this->calculateDamage($defender);
-        $dmg = $defender->defend($this, $commentator, $dmg);
+        $dmg = $defender->defend($this, $dmg);
         $defender->dealDamage($dmg);
 
         $commentText = "{name} hit opponent dealing {dmg} damage.";
@@ -70,7 +77,7 @@ class FightPlayer
             $commentText .= " Opponent has {health_left} health left.";
         }
 
-        $commentator->addComment($commentText, $this->player, $defender->getPlayer(), $dmg);
+        $this->commentator->addComment($commentText, $this->player, $defender->getPlayer(), $dmg);
     }
 
     /**
@@ -79,12 +86,12 @@ class FightPlayer
      * @param $dmg
      * @return int
      */
-    public function defend(FightPlayer $attacker, CommentatorInterface $commentator, $dmg): int
+    public function defend(FightPlayer $attacker, $dmg): int
     {
         foreach ($this->player->getSkills() as $skill) {
             if ($this->hasLuckToUse($skill)) {
 
-                $dmg = $skill->onDefense($attacker, $this, $commentator, $dmg);
+                $dmg = $skill->onDefense($attacker, $this, $this->commentator, $dmg);
             }
         }
 

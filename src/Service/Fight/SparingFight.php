@@ -71,12 +71,12 @@ class SparingFight implements FightInterface
 
         if ($firstPlayer === $player1) {
 
-            $this->attacker = new FightPlayer($player1);
-            $this->defender = new FightPlayer($player2);
+            $this->attacker = new FightPlayer($player1, $this->commentator);
+            $this->defender = new FightPlayer($player2, $this->commentator);
         } else {
 
-            $this->attacker = new FightPlayer($player2);
-            $this->defender = new FightPlayer($player1);
+            $this->attacker = new FightPlayer($player2, $this->commentator);
+            $this->defender = new FightPlayer($player1, $this->commentator);
         }
     }
 
@@ -87,7 +87,7 @@ class SparingFight implements FightInterface
     {
         do {
 
-            $this->attacker->attack($this->defender, $this->commentator);
+            $this->attacker->attack($this->defender);
 
             $this->switchRoles();
             $this->currentRound++;

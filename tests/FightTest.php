@@ -41,7 +41,7 @@ final class FightTest extends TestCase
         $fightPlayer1 = new FightPlayer($hero);
         $fightPlayer2 = new FightPlayer($enemy);
 
-        $fightPlayer1->attack($fightPlayer2, $commentator);
+        $fightPlayer1->attack($fightPlayer2);
 
         $formattedComments = $commentator->getFormattedComments();
 

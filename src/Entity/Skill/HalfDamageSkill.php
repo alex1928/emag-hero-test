@@ -45,6 +45,6 @@ class HalfDamageSkill extends Skill
         $comment = new FightComment($this->message);
         $comment->setPlayerName($defender->getPlayer()->getName());
         $commentator->addCommentObject($comment);
-        return round( $dmg / 2);
+        return (int)round( $dmg / 2);
     }
 }

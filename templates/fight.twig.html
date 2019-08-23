@@ -6,5 +6,33 @@
 {% endblock %}
 
 {% block body %}
-    test test
+
+    <h1>Sparing Fight</h1>
+
+    <h2>Hero</h2>
+    <strong>Health: </strong> {{ heroStats.getHealth() }}<br>
+    <strong>Strength: </strong> {{ heroStats.getStrength() }}<br>
+    <strong>Defense: </strong> {{ heroStats.getDefense() }}<br>
+    <strong>Speed: </strong> {{ heroStats.getSpeed() }}<br>
+    <strong>Luck: </strong> {{ heroStats.getLuck() }}%<br>
+
+    <h2>Monster</h2>
+    <strong>Health: </strong> {{ monsterStats.getHealth() }}<br>
+    <strong>Strength: </strong> {{ monsterStats.getStrength() }}<br>
+    <strong>Defense: </strong> {{ monsterStats.getDefense() }}<br>
+    <strong>Speed: </strong> {{ monsterStats.getSpeed() }}<br>
+    <strong>Luck: </strong> {{ monsterStats.getLuck() }}%<br>
+
+    <h2>Fight</h2>
+
+    {% for comment in fightComments %}
+
+        <div>
+            <p>
+                {{ comment.getParsedText() }}
+            </p>
+        </div>
+
+    {% endfor %}
+
 {% endblock %}

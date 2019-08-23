@@ -21,7 +21,7 @@ class FightComment
     /**
      * @var int
      */
-    private $dmg = 0;
+    private $damage = 0;
     /**
      * @var int
      */
@@ -69,19 +69,31 @@ class FightComment
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getDmg(): int
+    public function getParsedText(): string
     {
-        return $this->dmg;
+        $comment = str_replace('{name}', $this->getPlayerName(), $this->getText());
+        $comment = str_replace('{dmg}', $this->getDamage(), $comment);
+        $comment = str_replace('{health_left}', $this->getHealthLeft(), $comment);
+
+        return $comment;
     }
 
     /**
-     * @param $dmg
+     * @return int
      */
-    public function setDmg($dmg): void
+    public function getDamage(): int
     {
-        $this->dmg = $dmg;
+        return $this->damage;
+    }
+
+    /**
+     * @param $damage
+     */
+    public function setDamage($damage): void
+    {
+        $this->damage = $damage;
     }
 
     /**
@@ -107,5 +119,4 @@ class FightComment
     {
         return $this->text;
     }
-
 }

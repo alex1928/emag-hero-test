@@ -15,7 +15,7 @@ class HTMLFightCommentFormatter implements FightCommentFormatterInterface
     public function format(FightComment $comment): string
     {
         $comment_str = str_replace('{name}', '<strong>'.$comment->getPlayerName().'</strong>', $comment->getText());
-        $comment_str = str_replace('{dmg}', '<strong>'.$comment->getDmg().'</strong>', $comment_str);
+        $comment_str = str_replace('{dmg}', '<strong>'.$comment->getDamage().'</strong>', $comment_str);
         $comment_str = str_replace('{health_left}', '<strong>'.$comment->getHealthLeft().'</strong>', $comment_str);
 
         $html  = "<div>";
