@@ -14,19 +14,6 @@ class Commentator implements CommentatorInterface
      * @var array
      */
     private $comments = [];
-    /**
-     * @var FightCommentFormatterInterface
-     */
-    private $commentFormatter;
-
-    /**
-     * Commentator constructor.
-     * @param FightCommentFormatterInterface $commentFormatter
-     */
-    public function __construct(FightCommentFormatterInterface $commentFormatter)
-    {
-        $this->commentFormatter = $commentFormatter;
-    }
 
     /**
      * @param string $text

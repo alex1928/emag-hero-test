@@ -53,8 +53,7 @@ $heroBeforeFight = clone $hero;
 $monsterBeforeFight = clone $monster;
 
 
-$fightCommentFormatter = new HTMLFightCommentFormatter();
-$fightCommentator = new Commentator($fightCommentFormatter);
+$fightCommentator = new Commentator();
 $priorityDeterminer = new PriorityDeterminer();
 
 $fightFactory = new FightFactory($fightCommentator, $priorityDeterminer);
