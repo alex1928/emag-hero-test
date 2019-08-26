@@ -1,6 +1,6 @@
 # Sparing Fight Demo
 
-This is simple turn based sparing fight between two players, written in pure PHP7.
+This is simple turn based sparing fight between two players, written in PHP7.
 
 ## Getting Started
 
