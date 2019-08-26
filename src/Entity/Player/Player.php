@@ -2,9 +2,6 @@
 
 namespace App\Entity\Player;
 
-use App\Service\StatsProvider\PlayerStatsInterface;
-
-
 /**
  * Class Player
  * @package App\Entity\Player

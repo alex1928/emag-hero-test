@@ -148,7 +148,7 @@ class FightPlayer
     {
         if ($this->hasLuckToUse($skill, $this->luckRandGenerator)) {
 
-            $damage = $skill->onDefense($attacker, $this, $this->commentator, $damage);
+            $damage = $skill->onDefense($attacker, $this, $damage);
         }
         return $damage;
     }
@@ -203,5 +203,13 @@ class FightPlayer
     public function getPlayer(): Player
     {
         return $this->player;
+    }
+
+    /**
+     * @return CommentatorInterface
+     */
+    public function getCommentator(): CommentatorInterface
+    {
+        return $this->commentator;
     }
 }

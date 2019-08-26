@@ -3,9 +3,7 @@
 namespace App\Entity\Skill;
 
 use App\Service\Fight\Commentator\AugmentedComment;
-use App\Service\Fight\Commentator\CommentatorInterface;
 use App\Service\Fight\FightPlayer;
-
 
 /**
  * Class StrikeTwiceSkill
@@ -26,13 +24,14 @@ class StrikeTwiceSkill extends Skill
     /**
      * @param FightPlayer $attacker
      * @param FightPlayer $defender
-     * @param CommentatorInterface $commentator
      */
-    public function onAttack(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator): void
+    public function onAttack(FightPlayer $attacker, FightPlayer $defender): void
     {
         $attackComment = new AugmentedComment($this->message, [
            'name' => $attacker->getPlayer()->getName(),
         ]);
+
+        $commentator = $attacker->getCommentator();
         $commentator->addComment($attackComment);
 
         $attacker->hit($defender);
@@ -41,11 +40,10 @@ class StrikeTwiceSkill extends Skill
     /**
      * @param FightPlayer $attacker
      * @param FightPlayer $defender
-     * @param CommentatorInterface $commentator
      * @param int $damage
      * @return int
      */
-    public function onDefense(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator, $damage = 0): int
+    public function onDefense(FightPlayer $attacker, FightPlayer $defender, $damage = 0): int
     {
         return $damage;
     }

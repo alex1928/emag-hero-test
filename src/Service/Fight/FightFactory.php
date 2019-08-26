@@ -2,8 +2,6 @@
 
 namespace App\Service\Fight;
 
-use App\Entity\Player\Player;
-use App\Entity\Utils\RandGenerator;
 use App\Entity\Utils\RandGeneratorInterface;
 use App\Service\Fight\Commentator\CommentatorInterface;
 use App\Service\Fight\PriorityDeterminer\PriorityDeterminerInterface;
@@ -15,6 +13,9 @@ use App\Service\Fight\PriorityDeterminer\PriorityDeterminerInterface;
 class FightFactory
 {
     /**
+     * @param CommentatorInterface $commentator
+     * @param PriorityDeterminerInterface $priorityDeterminer
+     * @param RandGeneratorInterface $randGenerator
      * @return FightInterface
      */
     public function createSparingFight(CommentatorInterface $commentator, PriorityDeterminerInterface $priorityDeterminer, RandGeneratorInterface $randGenerator) : FightInterface

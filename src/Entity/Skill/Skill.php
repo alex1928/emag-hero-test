@@ -2,7 +2,6 @@
 
 namespace App\Entity\Skill;
 
-
 /**
  * Class Skill
  * @package App\Entity\Skill

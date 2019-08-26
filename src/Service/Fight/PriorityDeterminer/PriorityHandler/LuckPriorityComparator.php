@@ -14,9 +14,9 @@ class LuckPriorityComparator extends PriorityComparator
     /**
      * @param PlayerStats $stats1
      * @param PlayerStats $stats2
-     * @return int|null
+     * @return bool
      */
-    public function compare(PlayerStats $stats1, PlayerStats $stats2): ?int
+    public function compare(PlayerStats $stats1, PlayerStats $stats2): bool
     {
         if ($stats1->getLuck() != $stats2->getLuck()) {
             return $stats1->getLuck() > $stats2->getLuck();

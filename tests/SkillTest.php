@@ -57,7 +57,7 @@ class SkillTest extends TestCase
         $expectedComment = "{$this->fightPlayer1->getPlayer()->getName()} used Magic Shield and will take only half of damage!";
         $damage = 50;
 
-        $damage = $halfDamageSkill->onDefense($this->fightPlayer1, $this->fightPlayer2, $this->commentator, $damage);
+        $damage = $halfDamageSkill->onDefense($this->fightPlayer1, $this->fightPlayer2, $damage);
 
         $this->assertEquals(25, $damage);
         $this->assertContains($expectedComment, $this->commentator->getComments());
@@ -69,7 +69,7 @@ class SkillTest extends TestCase
 
         $expectedComment = "{$this->fightPlayer1->getPlayer()->getName()} used Rapid Strike and will hit enemy two times!";
 
-        $halfDamageSkill->onAttack($this->fightPlayer1, $this->fightPlayer2, $this->commentator);
+        $halfDamageSkill->onAttack($this->fightPlayer1, $this->fightPlayer2);
 
         $this->assertCount(2, $this->commentator->getComments());
         $this->assertContains($expectedComment, $this->commentator->getComments());

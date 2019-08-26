@@ -9,11 +9,6 @@ namespace App\Service\Fight\Commentator;
 class AugmentedComment extends BasicComment
 {
     /**
-     * @var
-     */
-    private $data;
-
-    /**
      * FightComment constructor.
      * @param string $text
      * @param array $data

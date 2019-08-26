@@ -27,9 +27,9 @@ use App\Entity\Player\PlayerStats;
     /**
      * @param PlayerStats $stats1
      * @param PlayerStats $stats2
-     * @return int|null
+     * @return bool
      */
-    public function compare(PlayerStats $stats1, PlayerStats $stats2): ?int
+    public function compare(PlayerStats $stats1, PlayerStats $stats2): bool
     {
         if ($this->nextHandler) {
             return $this->nextHandler->compare($stats1, $stats2);
