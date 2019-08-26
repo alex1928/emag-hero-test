@@ -1,103 +1,64 @@
 <?php
 
 use App\Entity\Player\Player;
+use App\Entity\Player\PlayerStats;
 use App\Service\Fight\PriorityDeterminer\PriorityDeterminer;
-use App\Service\StatsProvider\StaticPlayerStatsProvider;
 use PHPUnit\Framework\TestCase;
 
-final class PriorityDeterminerTest extends TestCase
+class PriorityDeterminerTest extends TestCase
 {
-    public function testSpeedPriority() : void
+    private $priorityDeterminer;
+    private $player1;
+    private $player2;
+
+    protected function setUp()
     {
-        $heroStatProvider = new StaticPlayerStatsProvider(
-            10,
-            10,
-            10,
-            15,
-            10
-        );
+        $this->priorityDeterminer = new PriorityDeterminer();
 
-        $monsterStatProvider = new StaticPlayerStatsProvider(
-            10,
-            10,
-            10,
-            10,
-            10
-        );
+        $playerStats1 = new PlayerStats();
+        $playerStats1->setHealth(50);
+        $playerStats1->setStrength(50);
+        $playerStats1->setDefense(50);
+        $playerStats1->setSpeed(50);
+        $playerStats1->setLuck(50);
 
-        $player1 = new Player("Player1");
-        $player1->setStats($heroStatProvider);
+        $playerStats2 = clone $playerStats1;
 
-        $player2 = new Player("Player2");
-        $player2->setStats($monsterStatProvider);
-        $priorityDeterminer = new PriorityDeterminer();
-
-        $firstPlayer = $priorityDeterminer->getFirst($player1, $player2);
-        $this->assertEquals($player1, $firstPlayer);
-
-        $firstPlayer = $priorityDeterminer->getFirst($player2, $player1);
-        $this->assertEquals($player1, $firstPlayer);
+        $this->player1 = new Player("player1", $playerStats1);
+        $this->player2 = new Player("player2", $playerStats2);
     }
 
-    public function testLuckPriority() : void
+    public function testSpeedPriority()
     {
-        $heroStatProvider = new StaticPlayerStatsProvider(
-            10,
-            10,
-            10,
-            10,
-            15
-        );
+        $this->player1->getStats()->setSpeed(60);
+        $first = $this->priorityDeterminer->getFirst($this->player1, $this->player2);
 
-        $monsterStatProvider = new StaticPlayerStatsProvider(
-            10,
-            10,
-            10,
-            10,
-            10
-        );
-
-        $player1 = new Player("Player1");
-        $player1->setStats($heroStatProvider);
-
-        $player2 = new Player("Player2");
-        $player2->setStats($monsterStatProvider);
-        $priorityDeterminer = new PriorityDeterminer();
-
-        $firstPlayer = $priorityDeterminer->getFirst($player1, $player2);
-        $this->assertEquals($player1, $firstPlayer);
-
-        $firstPlayer = $priorityDeterminer->getFirst($player2, $player1);
-        $this->assertEquals($player1, $firstPlayer);
+        $this->assertEquals($this->player1, $first);
     }
 
-    public function testRandomPriority() : void
+    public function testSpeedPriorityInversed()
     {
-        $heroStatProvider = new StaticPlayerStatsProvider(
-            10,
-            10,
-            10,
-            10,
-            10
-        );
+        $this->player2->getStats()->setSpeed(60);
+        $first = $this->priorityDeterminer->getFirst($this->player1, $this->player2);
 
-        $monsterStatProvider = new StaticPlayerStatsProvider(
-            10,
-            10,
-            10,
-            10,
-            10
-        );
+        $this->assertEquals($this->player2, $first);
+    }
 
-        $player1 = new Player("Player1");
-        $player1->setStats($heroStatProvider);
+    public function testLuckPriority()
+    {
+        $this->player1->getStats()->setLuck(60);
 
-        $player2 = new Player("Player2");
-        $player2->setStats($monsterStatProvider);
-        $priorityDeterminer = new PriorityDeterminer();
+        $first = $this->priorityDeterminer->getFirst($this->player1, $this->player2);
 
-        $firstPlayer = $priorityDeterminer->getFirst($player1, $player2);
+        $this->assertEquals($this->player1, $first);
+    }
 
-        $this->assertContains($firstPlayer, [$player1, $player2]);
+    public function testLuckPriorityInversed()
+    {
+        $this->player2->getStats()->setLuck(60);
+
+        $first = $this->priorityDeterminer->getFirst($this->player1, $this->player2);
+
+        $this->assertEquals($this->player2, $first);
     }
 }
