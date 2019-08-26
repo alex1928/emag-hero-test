@@ -8,4 +8,5 @@ interface FightInterface
 {
     public function fight(): ?Player;
     public function getWinner(): ?Player;
+    public function setPlayers(Player $player1, Player $player2): void;
 }

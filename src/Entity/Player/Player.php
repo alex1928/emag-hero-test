@@ -15,11 +15,11 @@ class Player
      * @var string
      */
     private $name;
+
     /**
      * @var PlayerStats
      */
     private $stats = [];
-
 
     /**
      * @var array
@@ -44,14 +44,6 @@ class Player
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Service\Fight;
 
 
 use App\Entity\Player\Player;
+use App\Entity\Utils\RandGeneratorInterface;
 use App\Service\Fight\PriorityDeterminer\PriorityDeterminerInterface;
 use App\Service\Fight\Commentator\CommentatorInterface;
 
@@ -33,6 +34,11 @@ class SparingFight implements FightInterface
     private $priorityDeterminer;
 
     /**
+     * @var RandGeneratorInterface
+     */
+    private $randGenerator;
+
+    /**
      * @var FightPlayer
      */
     private $attacker;
@@ -48,35 +54,33 @@ class SparingFight implements FightInterface
 
     /**
      * SparingFight constructor.
-     * @param Player $player1
-     * @param Player $player2
      * @param CommentatorInterface $commentator
      * @param PriorityDeterminerInterface $priorityDeterminer
+     * @param RandGeneratorInterface $randGenerator
      */
-    public function __construct(Player $player1, Player $player2, CommentatorInterface $commentator, PriorityDeterminerInterface $priorityDeterminer)
+    public function __construct(CommentatorInterface $commentator, PriorityDeterminerInterface $priorityDeterminer, RandGeneratorInterface $randGenerator)
     {
         $this->commentator = $commentator;
         $this->priorityDeterminer = $priorityDeterminer;
-
-        $this->preparePlayers($player1, $player2);
+        $this->randGenerator = $randGenerator;
     }
 
     /**
      * @param Player $player1
      * @param Player $player2
      */
-    private function preparePlayers(Player $player1, Player $player2): void
+    public function setPlayers(Player $player1, Player $player2): void
     {
         $firstPlayer = $this->priorityDeterminer->getFirst($player1, $player2);
 
         if ($firstPlayer === $player1) {
 
-            $this->attacker = new FightPlayer($player1, $this->commentator);
-            $this->defender = new FightPlayer($player2, $this->commentator);
+            $this->attacker = new FightPlayer($player1, $this->commentator, $this->randGenerator);
+            $this->defender = new FightPlayer($player2, $this->commentator, $this->randGenerator);
         } else {
 
-            $this->attacker = new FightPlayer($player2, $this->commentator);
-            $this->defender = new FightPlayer($player1, $this->commentator);
+            $this->attacker = new FightPlayer($player2, $this->commentator, $this->randGenerator);
+            $this->defender = new FightPlayer($player1, $this->commentator, $this->randGenerator);
         }
     }
 
@@ -101,15 +105,13 @@ class SparingFight implements FightInterface
 
         if ($attackerPlayer->getStats()->getHealth() == $defenderPlayer->getStats()->getHealth()) {
 
-            $commentText = "The fight ended in a draw.";
-            $this->commentator->addComment($commentText, $attackerPlayer, $defenderPlayer);
+            $this->commentator->addTextComment("The fight ended in a draw.");
             return null;
         }
 
         $winner = $this->getWinner();
+        $this->commentator->addTextComment("{$winner->getName()} defeated the opponent!");
 
-        $commentText = "{name} defeated the opponent!";
-        $this->commentator->addComment($commentText, $winner, $winner);
         return $winner;
     }
 

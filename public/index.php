@@ -22,7 +22,6 @@ $heroStats->setStrength($randGenerator->rand(70, 80));
 $heroStats->setDefense($randGenerator->rand(45, 55));
 $heroStats->setSpeed($randGenerator->rand(40, 50));
 $heroStats->setLuck($randGenerator->rand(10, 30));
-
 $heroStartStatsState = new PlayerStatsState($heroStats);
 
 
@@ -32,9 +31,7 @@ $monsterStats->setStrength($randGenerator->rand(60, 90));
 $monsterStats->setDefense($randGenerator->rand(40, 60));
 $monsterStats->setSpeed($randGenerator->rand(40, 60));
 $monsterStats->setLuck($randGenerator->rand(25, 40));
-
 $monsterStartStatsState = new PlayerStatsState($monsterStats);
-
 
 $skillFactory = new SkillFactory();
 
@@ -42,27 +39,23 @@ $playerSkills = [];
 $playerSkills[] = $skillFactory->createStrikeTwiceSkill();
 $playerSkills[] = $skillFactory->createHalfDamageSkill();
 
-
 $hero = new Player("Orderus", $heroStats);
 $hero->setSkills($playerSkills);
 
 $monster = new Player("Wild Beast", $monsterStats);
 
-
-$heroBeforeFight = clone $hero;
-$monsterBeforeFight = clone $monster;
-
-
 $fightCommentator = new Commentator();
 $priorityDeterminer = new PriorityDeterminer();
 
-$fightFactory = new FightFactory($fightCommentator, $priorityDeterminer);
-$sparingFight = $fightFactory->createSparingFight($hero, $monster);
+$fightFactory = new FightFactory();
+$sparingFight = $fightFactory->createSparingFight($fightCommentator, $priorityDeterminer, $randGenerator);
+$sparingFight->setPlayers($hero, $monster);
 
 $sparingFight->fight();
 
 $heroStartStatsState->getStats($hero->getStats());
 $monsterStartStatsState->getStats($monster->getStats());
+
 
 $loader = new FilesystemLoader(dirname(__DIR__).'/templates');
 $twig = new Environment($loader, [

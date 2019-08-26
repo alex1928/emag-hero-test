@@ -11,5 +11,5 @@ interface SkillInterface
     public function getMessage(): string;
     public function getProbability(): int;
     public function onAttack(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator): void;
-    public function onDefense(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator, $dmg = 0): int;
+    public function onDefense(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator, $damage = 0): int;
 }

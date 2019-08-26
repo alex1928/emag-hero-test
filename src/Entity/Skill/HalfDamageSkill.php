@@ -2,6 +2,7 @@
 
 namespace App\Entity\Skill;
 
+use App\Service\Fight\Commentator\AugmentedComment;
 use App\Service\Fight\Commentator\CommentatorInterface;
 use App\Service\Fight\Commentator\FightComment;
 use App\Service\Fight\FightPlayer;
@@ -37,14 +38,16 @@ class HalfDamageSkill extends Skill
      * @param FightPlayer $attacker
      * @param FightPlayer $defender
      * @param CommentatorInterface $commentator
-     * @param int $dmg
+     * @param int $damage
      * @return int
      */
-    public function onDefense(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator, $dmg = 0): int
+    public function onDefense(FightPlayer $attacker, FightPlayer $defender, CommentatorInterface $commentator, $damage = 0): int
     {
-        $comment = new FightComment($this->message);
-        $comment->setPlayerName($defender->getPlayer()->getName());
-        $commentator->addCommentObject($comment);
-        return (int)round( $dmg / 2);
+        $comment = new AugmentedComment($this->message, [
+            'name' => $attacker->getPlayer()->getName(),
+        ]);
+        $commentator->addComment($comment);
+
+        return (int)round( $damage / 2);
     }
 }

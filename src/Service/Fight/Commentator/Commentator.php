@@ -2,8 +2,6 @@
 
 namespace App\Service\Fight\Commentator;
 
-use App\Entity\Player\Player;
-
 /**
  * Class Commentator
  * @package App\Service\Fight\Commentator
@@ -17,24 +15,17 @@ class Commentator implements CommentatorInterface
 
     /**
      * @param string $text
-     * @param Player $attacker
-     * @param Player $defender
-     * @param int $damage
      */
-    public function addComment(string $text, Player $attacker, Player $defender, $damage = 0): void
+    public function addTextComment(string $text): void
     {
-        $comment = new FightComment($text);
-        $comment->setPlayerName($attacker->getName());
-        $comment->setHealthLeft($defender->getStats()->getHealth());
-        $comment->setDamage($damage);
-
-        $this->addCommentObject($comment);
+        $comment = new BasicComment($text);
+        $this->addComment($comment);
     }
 
     /**
-     * @param FightComment $comment
+     * @param CommentInterface $comment
      */
-    public function addCommentObject(FightComment $comment): void
+    public function addComment(CommentInterface $comment): void
     {
         $this->comments[] = $comment;
     }
